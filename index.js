@@ -50,6 +50,19 @@ app.post("/login",async (req,res)=> {
     }
 })
 
+
+// Define an API endpoint to retrieve user information by email address
+app.get('/users/:email', async (req, res) => {
+    const email = req.params.email;
+    try {
+      const user = await User.findOne({ email });
+      res.send({ user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
 app.post("/register",async (req,res)=> {
    
     const {name, email, mobile, role, password} = req.body
